@@ -61,3 +61,4 @@ Joy.borrow(book1);
 Joy.borrow(book2);
 Abby.return(book1);
 Chinwe.borrow(book1); 
+console.log(Joy);
