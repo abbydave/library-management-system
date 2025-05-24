@@ -45,20 +45,64 @@ class Member{
    }
 }
 
+class Library{
+    private books: Book[]= [];
+    private members: Member[] = [];
 
+    bookAdd(book: Book): void{
+        this.books.push(book);
+    }
+
+    memberAdd(member: Member): void{
+        this.members.push(member);
+    }
+
+    listBooks(): void{
+        console.log("\n Library Book List");
+        this.books.forEach(book => {
+            console.log(`${book.shelfNumber}. "${book.bookTitle}" by ${book.author} - ${book.available} ? "Available" : "Not Available"`)
+        });           
+}
+
+listMembers(): void {
+    console.log("\n Library Members List");
+    this.members.forEach(member => {
+         const books = member.borrowBook.map(b => `"${b.bookTitle}"`).join(", ");
+        console.log(`${member.name} has borrowed: ${books || "No books"}`)
+    })
+}
+}   
+
+  
 
 const book1 = new Book(190, "purple hearts", "Chima Amanda");
 const book2 = new Book(180, "Half a yellow sun","Chimamanda Ngozi Adichie" );
 const Abby =  new Member("Abby", 16, "18 Adebiyi Street");
 const Joy = new Member("Joy", 18, "Ikoyi");
 const Chinwe = new Member("Chinwe", 21, "Lagos island");
-console.log(book1);
-console.log(book2);
+
+/*console.log(book2);
 console.log(Abby);
 console.log(Joy);
 Abby.borrow(book1);
 Joy.borrow(book1);
 Joy.borrow(book2);
 Abby.return(book1);
-Chinwe.borrow(book1); 
-console.log(Joy);
+Chinwe.borrow(book1); */
+
+const library = new Library();
+library.bookAdd(book1);
+library.bookAdd(book2);
+const member1 = new Member("Abigail", 21, "Ikoyi");
+library.memberAdd(member1);
+
+library.listBooks();
+library.listMembers();
+
+member1.borrow(book1);
+library.listBooks();
+library.listMembers();
+
+member1.return(book1);
+library.listBooks();
+library.listMembers();
